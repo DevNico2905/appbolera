@@ -1,2 +1,9 @@
-<app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet>
+<div class="flex min-h-screen">
+  <!-- Aside bar -->
+   <app-aside-bar class="shrink-0"></app-aside-bar>
+
+  <!-- Contenido principal -->
+  <div class="flex-1 p-5 overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>

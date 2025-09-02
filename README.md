@@ -1,5 +1,19 @@
 # Appbolera
 
+
+Version NX = v21.4.1 | Current Latest Agost 2025
+nx g @nx/angular:setup-tailwind appbolera-frontend
+npm i -D daisyui@4.12.10
+npm install -D @tailwindcss/typography
+npm install @fortawesome/free-solid-svg-icons
+npm install @fortawesome/free-regular-svg-icons
+npm install @fortawesome/free-brands-svg-icons
+npm install @fortawesome/angular-fontawesome
+nx g @nx/angular:component apps/ecom-frontend/src/app/layout/navbar // To create the Angular Components using Nx
+
+
+npm install @nxrocks/nx-spring-boot --save-dev // Maybe if we decided to create the springboot using Nx.
+
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
