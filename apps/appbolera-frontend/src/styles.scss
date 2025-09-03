@@ -2,4 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* src/styles.css (or src/styles.scss) */
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat/Montserrat-Bold.ttf') format('truetype'); /* Path from src/assets/fonts/ */
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins/Poppins-Medium.ttf') format('truetype'); /* Path from src/assets/fonts/ */
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 /* You can add global styles to this file, and also import other style files */

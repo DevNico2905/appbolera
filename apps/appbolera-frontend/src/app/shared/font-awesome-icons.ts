@@ -1,5 +1,5 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faCartShopping, faTruckFast, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBowlingBall, faCartShopping, faTruckFast, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 export const fontAwesomeIcons: IconDefinition[] = [
@@ -8,4 +8,5 @@ export const fontAwesomeIcons: IconDefinition[] = [
     faTruckFast,
     faFacebook,
     faInstagram,
+    faBowlingBall
 ];
