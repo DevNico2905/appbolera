@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
-// import { NewGameModal } from './content/newgame/new-game-modal'
-// import { App } from './app';
+import { Home } from './home/home';
+import { NewGameModal } from './content/newgame/new-game-modal'
 
 export const appRoutes: Route[] = [
-    // {path: "", component:App}
-    // {path: "new-game", component:NewGameModal}
+    {path: "", component:Home},
+    {path: "new-game", component:NewGameModal}
 ];
