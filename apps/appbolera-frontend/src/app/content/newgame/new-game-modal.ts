@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, ElementRef, ViewChildren, QueryList , AfterViewInit, inject} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './new-game-modal.html',
   styleUrl: './new-game-modal.css',
 })
-export class NewGameModal {
+export class NewGameModal implements AfterViewInit {
   @ViewChildren('radioButton') radioButtons!: QueryList<ElementRef>;
   
   selectedValue: string | null = null;
@@ -16,10 +16,8 @@ export class NewGameModal {
   isSaving = false;
   showModal = false;
 
-  constructor(
-    private elRef: ElementRef,
-    private router: Router
-  ) {}
+  private elRef = inject(ElementRef);
+  private router = inject (Router)
 
   ngAfterViewInit(): void {
     this.radioButtons.forEach(button => {
@@ -80,18 +78,21 @@ export class NewGameModal {
   }
 
   private toggleDivNameClasses(states: { two: boolean; three: boolean; four: boolean; five: boolean; six: boolean }): void {
-    const divTwo = this.elRef.nativeElement.querySelector('#div-name-two') as HTMLElement;
-    const divThree = this.elRef.nativeElement.querySelector('#div-name-three') as HTMLElement;
-    const divFour = this.elRef.nativeElement.querySelector('#div-name-four') as HTMLElement;
-    const divFive = this.elRef.nativeElement.querySelector('#div-name-five') as HTMLElement;
-    const divSix = this.elRef.nativeElement.querySelector('#div-name-six') as HTMLElement;
+    const mapping: Record<string, boolean> = {
+      '#div-name-two': states.two,
+      '#div-name-three': states.three,
+      '#div-name-four': states.four,
+      '#div-name-five': states.five,
+      '#div-name-six': states.six,
+    };
 
-    if (divTwo) states.two ? divTwo.classList.add('showDivName') : divTwo.classList.remove('showDivName');
-    if (divThree) states.three ? divThree.classList.add('showDivName') : divThree.classList.remove('showDivName');
-    if (divFour) states.four ? divFour.classList.add('showDivName') : divFour.classList.remove('showDivName');
-    if (divFive) states.five ? divFive.classList.add('showDivName') : divFive.classList.remove('showDivName');
-    if (divSix) states.six ? divSix.classList.add('showDivName') : divSix.classList.remove('showDivName');
+    Object.entries(mapping).forEach(([selector, shouldShow]) => {
+      const div = this.elRef.nativeElement.querySelector(selector) as HTMLElement | null;
+      if (div) {
+        div.classList.toggle('showDivName', shouldShow);
+      }
+    });
   }
-  
+
 
 }
