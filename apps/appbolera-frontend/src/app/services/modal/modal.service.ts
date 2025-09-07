@@ -11,4 +11,12 @@ export class ModalService {
   public printVisibility(): void {
     console.log(this.modalVisibilitySubject.value);
   }
+
+  newGameModalItsOpen(): void {
+    this.modalVisibilitySubject.next(true);
+  }
+
+  newGameModalItsClosed(): void {
+    this.modalVisibilitySubject.next(false);
+  }
 }

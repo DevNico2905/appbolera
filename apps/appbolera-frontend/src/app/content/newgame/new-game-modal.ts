@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChildren, QueryList , AfterViewInit, inject} from '@angular/core';
+import { Component, ElementRef, ViewChildren, QueryList , OnInit, AfterViewInit, inject} from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService } from '../../services/modal/modal.service';
 
@@ -8,7 +8,7 @@ import { ModalService } from '../../services/modal/modal.service';
   templateUrl: './new-game-modal.html',
   styleUrl: './new-game-modal.css',
 })
-export class NewGameModal implements AfterViewInit {
+export class NewGameModal implements OnInit, AfterViewInit {
   @ViewChildren('radioButton') radioButtons!: QueryList<ElementRef>;
   
   selectedValue: string | null = null;
@@ -21,6 +21,16 @@ export class NewGameModal implements AfterViewInit {
   private router = inject (Router)
   private modalService = inject(ModalService);
 
+  ngOnInit(): void {
+    this.modalService.newGameModalItsOpen();
+    this.modalService.modalVisibility$.subscribe(visible => {
+      this.showModal = visible;
+      if (!visible) {
+        this.resetForm();
+      }
+    })
+    this.modalService.printVisibility();
+  }
 
   ngAfterViewInit(): void {
     this.radioButtons.forEach(button => {
@@ -122,6 +132,12 @@ export class NewGameModal implements AfterViewInit {
     this.clearInputs();
     this.resetSelection();
     this.showDivNameDefault();
+  }
+
+  hideNewGameModal(): void {
+    this.resetForm();
+    this.modalService.newGameModalItsClosed();
+    this.router.navigate([''])
   }
 
 }
