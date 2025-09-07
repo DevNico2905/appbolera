@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChildren, QueryList , AfterViewInit, inject} from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalService } from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-new-game-modal',
@@ -18,11 +19,14 @@ export class NewGameModal implements AfterViewInit {
 
   private elRef = inject(ElementRef);
   private router = inject (Router)
+  private modalService = inject(ModalService);
+
 
   ngAfterViewInit(): void {
     this.radioButtons.forEach(button => {
       button.nativeElement.addEventListener('click', () => this.onRadioButtonClick(button.nativeElement));
     });
+    this.modalService.printVisibility();
   }
 
   onRadioButtonClick(button: HTMLElement): void {
@@ -41,6 +45,23 @@ export class NewGameModal implements AfterViewInit {
     }
   }
 
+  private getPlayerNames(): string[] {
+    const names = [];
+    const count = this.selectedValue ? parseInt(this.selectedValue.split('-')[0]) : 0;
+    
+    for (let i = 1; i <= count; i++) {
+      const input = this.elRef.nativeElement.querySelector(`#i-n-${this.getNumberName(i)}`) as HTMLInputElement;
+      if (input) names.push(input.value.trim());
+    }
+    
+    return names;
+  }
+
+  private getNumberName(num: number): string {
+    const names = ['one', 'two', 'three', 'four', 'five', 'six'];
+    return names[num - 1] || '';
+  }
+
   private clearInputs(): void {
     const inputs = this.elRef.nativeElement.querySelectorAll('.input-names') as NodeListOf<HTMLInputElement>;
     inputs.forEach(input => input.value = '');
@@ -55,7 +76,6 @@ export class NewGameModal implements AfterViewInit {
   private showDivNameDefault(): void {
     this.toggleDivNameClasses({ two: false, three: false, four: false, five: false, six: false });
   }
-
 
   private showDivNameTwo(): void {
     this.toggleDivNameClasses({ two: true, three: false, four: false, five: false, six: false });
@@ -94,5 +114,14 @@ export class NewGameModal implements AfterViewInit {
     });
   }
 
+  private resetForm(): void {
+    this.selectedValue = null;
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.isSaving = false;
+    this.clearInputs();
+    this.resetSelection();
+    this.showDivNameDefault();
+  }
 
 }
