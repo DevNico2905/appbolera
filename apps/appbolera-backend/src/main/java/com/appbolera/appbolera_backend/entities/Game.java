@@ -1,11 +1,7 @@
 package com.appbolera.appbolera_backend.entities;
 
-
-import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,15 +11,24 @@ import jakarta.persistence.Table;
 @Table(name = "game")
 @NoArgsConstructor
 public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long gameId;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
+        @Id
+        @Column(nullable = false, length = 36)
+        private String gameId;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Frame> frames;
+        @Column(nullable = false)
+        private LocalDateTime createdAt;
 
-    // getters y setters
+        public void setGameId(String id) {
+            this.gameId = id;
+        }
+
+        public void setCreatedAt(LocalDateTime now) {
+            this.createdAt = now;
+        }
+
 }
+
+    /*
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Frame> frames; */
