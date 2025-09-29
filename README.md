@@ -1,7 +1,7 @@
 # Appbolera
 
 
-Version NX = v21.4.1 | Current Latest Agost 2025
+Version NX = v21.4.1 | Current Latest Agost 2025 ```sh
 nx g @nx/angular:setup-tailwind appbolera-frontend
 npm i -D daisyui@4.12.10
 npm install -D @tailwindcss/typography
