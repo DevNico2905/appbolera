@@ -1,12 +1,16 @@
 import { Component, ElementRef, ViewChildren, QueryList , OnInit, AfterViewInit, inject} from '@angular/core';
 import { Router } from '@angular/router';
+import { v4 as uuidv4 } from 'uuid';
 import { ModalService } from '../../services/modal/modal.service';
+import { PlayerService } from '../../services/player/player.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-new-game-modal',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './new-game-modal.html',
   styleUrl: './new-game-modal.css',
+  
 })
 export class NewGameModal implements OnInit, AfterViewInit {
   @ViewChildren('radioButton') radioButtons!: QueryList<ElementRef>;
@@ -20,6 +24,7 @@ export class NewGameModal implements OnInit, AfterViewInit {
   private elRef = inject(ElementRef);
   private router = inject (Router)
   private modalService = inject(ModalService);
+  private playerService = inject(PlayerService);
 
   ngOnInit(): void {
     this.modalService.newGameModalItsOpen();
@@ -53,6 +58,67 @@ export class NewGameModal implements OnInit, AfterViewInit {
       case '5-p': this.showDivNameFive(); break;
       case '6-p': this.showDivNameSix(); break;
     }
+  }
+
+  startGame(): void {
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    if (!this.selectedValue) {
+      this.errorMessage = 'Por favor, selecciona el número de jugadores';
+      return;
+    }
+
+    const playerNames = this.getPlayerNames();
+    const playerCount = parseInt(this.selectedValue.split('-')[0]);
+
+    if (playerNames.length !== playerCount) {
+      this.errorMessage = `Debes ingresar exactamente ${playerCount} nombres de jugadores`;
+      return;
+    }
+
+    if (playerNames.some(name => !name.trim())) {
+      this.errorMessage = 'Todos los jugadores deben tener un nombre válido';
+      return;
+    }
+
+    this.isSaving = true;
+    const gameId = uuidv4();
+
+    this.playerService.saveGameId(gameId).subscribe({
+      next: (response) => {
+        console.log('Game ID saved successfully:', response);
+      },
+      error: (err) => {
+        console.error('Error saving Game ID:', err);
+      }
+    });
+
+    this.playerService.savePlayers(
+      playerNames.map(name => ({ name, gameId }))
+    ).subscribe({
+      next: (savedPlayers) => {
+        this.successMessage = `¡Partida creada con ${savedPlayers.length} jugadores!`;
+        this.isSaving = false;
+        // Set the gameId in the modal service
+        this.modalService.setCurrentGameId(gameId); //
+        this.modalService.setPlayers(playerNames, playerCount);
+        
+        setTimeout(() => {
+          this.modalService.closeNewGameModal();
+          this.router.navigate(['']);
+        }, 1500);
+
+        
+
+        //this.modalService.openScoreModal();
+      },
+      error: (err) => {
+        this.errorMessage = 'Error al guardar la partida. Por favor, intenta nuevamente.';
+        this.isSaving = false;
+        console.error('Error:', err);
+      }
+    });
   }
 
   private getPlayerNames(): string[] {

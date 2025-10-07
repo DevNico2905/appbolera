@@ -8,6 +8,13 @@ export class ModalService {
   private modalVisibilitySubject = new BehaviorSubject<boolean>(false);
   public modalVisibility$: Observable<boolean> = this.modalVisibilitySubject.asObservable();
 
+  private playersSubject = new BehaviorSubject<{
+    names: string[], 
+    count: number
+  }>({ names: [], count: 0 });
+
+  private currentGameId: string | null = null;
+
   public printVisibility(): void {
     console.log(this.modalVisibilitySubject.value);
   }
@@ -18,5 +25,18 @@ export class ModalService {
 
   newGameModalItsClosed(): void {
     this.modalVisibilitySubject.next(false);
+  }
+
+  closeNewGameModal(): void {
+    this.modalVisibilitySubject.next(false);
+  }
+
+  setCurrentGameId(gameId: string) {
+    this.currentGameId = gameId;
+  }
+
+  // Métodos para manejar los jugadores
+  setPlayers(names: string[], count: number): void {
+    this.playersSubject.next({ names, count });
   }
 }

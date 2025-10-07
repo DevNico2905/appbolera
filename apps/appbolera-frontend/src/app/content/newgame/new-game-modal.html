@@ -36,27 +36,34 @@
         </div>
     </div>
     
-    <!-- Agregar mensajes de estado
+    
     <div class="message-container">
-        <div *ngIf="errorMessage" class="error-message">
+        @if (errorMessage) {
+        <div class="error-message">
             {{ errorMessage }}
-        </div>
-        <div *ngIf="successMessage" class="success-message">
+        </div> }
+       @if (successMessage) {
+        <div class="success-message">
             {{ successMessage }}
-        </div>
-    </div>-->
+        </div> }
+    </div>
 
     <!-- Botones Modal -->
     <div class="botones-modal divs-modal">
         <button class="modal-buttons cancel" (click)="hideNewGameModal()">
             Cancelar
         </button>
-        <!--
+        
         <button class="modal-buttons aplied" 
             (click)="startGame()"
             [disabled]="isSaving">
-            <span *ngIf="!isSaving">¡Jugar!</span>
-            <span *ngIf="isSaving">Guardando...</span>
-        </button>-->
+            @if (!isSaving) {
+                <span>¡Jugar!</span>
+            }
+            
+            @if (isSaving) {
+                <span>Guardando...</span>
+            }
+        </button>
     </div>
 </div>
