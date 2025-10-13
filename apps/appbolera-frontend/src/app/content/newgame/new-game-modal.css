@@ -121,6 +121,7 @@
 .title-div {
     height: 50%;
     display: flex;
+    margin: 0.5rem auto 0.8rem;
 }
 
 .title-players {
@@ -170,7 +171,7 @@
 
 /* Estilos para mensajes */
 .message-container {
-    margin: 10px 0;
+    margin: 8px 0;
     min-height: 40px;
     display: flex;
     justify-content: center;

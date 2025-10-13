@@ -22,7 +22,7 @@ export class NewGameModal implements OnInit, AfterViewInit {
   showModal = false;
 
   private elRef = inject(ElementRef);
-  private router = inject (Router)
+  private router = inject (Router);
   private modalService = inject(ModalService);
   private playerService = inject(PlayerService);
 
@@ -106,7 +106,7 @@ export class NewGameModal implements OnInit, AfterViewInit {
         
         setTimeout(() => {
           this.modalService.closeNewGameModal();
-          this.router.navigate(['']);
+          this.router.navigate(['scorer-modal']);
         }, 1500);
 
         
