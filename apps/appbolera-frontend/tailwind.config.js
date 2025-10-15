@@ -24,7 +24,11 @@ module.exports = {
       '5xl': '3.052rem',
     },
 
-    extend: {},
+    extend: {
+      colors: {
+        slateblue: '#526581'
+      }
+    },
   },
   daisyui: {
     themes: [

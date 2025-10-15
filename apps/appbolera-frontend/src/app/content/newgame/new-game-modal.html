@@ -1,8 +1,8 @@
-<div class="NewGameModal h-[80dvh] w-[80dvw] rounded-3xl">
+<div class="NewGameModal h-[80dvh] w-[80dvw] rounded-3xl bg-slate-200">
     <!-- Seleccionar número de jugadores -->
-    <div class="selecciona-players divs-modal">
+    <div class="selecciona-players divs-modal bg-slate-200">
         <div class="title-div">
-            <p class="title-players">¿Cuántos jugadores son?</p>
+            <p class="title-players text-slateblue">¿Cuántos jugadores son?</p>
         </div>
         <div class="numero-players">
             <button class="opcion" #radioButton data-value="1-p">1</button>
@@ -15,7 +15,7 @@
     </div>
     
     <!-- Escribir nombres de jugadores -->
-    <div class="name-player divs-modal">
+    <div class="name-player divs-modal bg-slate-200">
         <div class="div-name-players o-d-n" id="div-name-one">
             <input type="text" class="input-names" id="i-n-one" placeholder="Jugador 1" required>
         </div>
@@ -49,7 +49,7 @@
     </div>
 
     <!-- Botones Modal -->
-    <div class="botones-modal divs-modal">
+    <div class="botones-modal divs-modal bg-slate-200">
         <button class="modal-buttons cancel" (click)="hideNewGameModal()">
             Cancelar
         </button>

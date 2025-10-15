@@ -20,7 +20,6 @@
 */
 
 .NewGameModal {
-    background-color: #e5e9ef;
     margin: auto;
     padding: 10px;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -32,14 +31,12 @@
 
 .selecciona-players {
     height: 20%;
-    background-color: #e5e9ef;
     display: flex;
     flex-direction: column;
 }
  
 .name-player {
     height: 70%;
-    background-color: #e5e9ef;
     border-radius: 15px;
     margin: 0 2%;
     display: flex;
@@ -51,7 +48,6 @@
 
 .botones-modal {
     height: 10%;
-    background-color: #e5e9ef;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -124,7 +120,6 @@
     margin: auto;
     font-family: 'Poppins';
     font-size: 1.8rem;
-    color: #526581;
 }
 
 .div-name-players {
