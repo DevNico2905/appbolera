@@ -21,12 +21,8 @@
 
 .NewGameModal {
     background-color: #e5e9ef;
-    width: 60%;
-    height: 600px;
     margin: auto;
-    padding: 10px; 
-    border-radius: 2.5%;
-    /*max-height: 600px;*/
+    padding: 10px;
     transition: opacity 0.3s ease, transform 0.3s ease;
     display: flex;
     flex-direction: column;
