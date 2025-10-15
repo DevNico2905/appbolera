@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
   imports: [TableModule],
   templateUrl: './scorer-modal.html',
   styleUrl: './scorer-modal.css',
+  standalone: true
 })
 export class ScorerModal {
 

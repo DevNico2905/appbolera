@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './new-game-modal.html',
   styleUrl: './new-game-modal.css',
-  
+  standalone: true
 })
 export class NewGameModal implements OnInit, AfterViewInit {
   @ViewChildren('radioButton') radioButtons!: QueryList<ElementRef>;
