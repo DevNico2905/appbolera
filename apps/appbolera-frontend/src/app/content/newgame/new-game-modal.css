@@ -55,17 +55,18 @@
 
 .modal-buttons {
     height: 40px;
-    width: 100px;
+    width: 120px;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: 'Poppins';
-    font-size: 1rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #526581;
     border: none;
+    background-color: white;
 }
 
 .cancel {
