@@ -23,6 +23,7 @@ export class NewGameModal implements OnInit, AfterViewInit {
   successMessage = '';
   isSaving = false;
   showModal = false;
+  value = 'off';
 
   private elRef = inject(ElementRef);
   private router = inject (Router);
@@ -33,8 +34,6 @@ export class NewGameModal implements OnInit, AfterViewInit {
     { label: '30 Min', value: '30' },
     { label: '60 Min', value: '60' },
   ];
-
-  value = 'off';
 
   ngOnInit(): void {
     this.modalService.newGameModalItsOpen();
@@ -92,6 +91,11 @@ export class NewGameModal implements OnInit, AfterViewInit {
       return;
     }
 
+    if (this.value == 'off') {
+      this.errorMessage = 'Debe seleccionar la duración de la partida';
+      return;
+    }
+
     this.isSaving = true;
     const gameId = uuidv4();
 
@@ -129,6 +133,7 @@ export class NewGameModal implements OnInit, AfterViewInit {
         console.error('Error:', err);
       }
     });
+    console.log(this.value)
   }
 
   private getPlayerNames(): string[] {
