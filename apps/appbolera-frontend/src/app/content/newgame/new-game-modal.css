@@ -47,7 +47,7 @@
 }
 
 .botones-modal {
-    height: 10%;
+    height: 15%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -162,8 +162,8 @@
 
 /* Estilos para mensajes */
 .message-container {
-    margin: 8px 0;
-    min-height: 40px;
+    margin: 3px 0;
+    min-height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -172,7 +172,7 @@
 .error-message {
     color: #d32f2f;
     background-color: #fde0e0;
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-radius: 5px;
     border-left: 4px solid #d32f2f;
     font-family: 'Poppins';

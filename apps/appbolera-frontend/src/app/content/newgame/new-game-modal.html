@@ -35,17 +35,10 @@
             <input type="text" class="input-names" id="i-n-six" placeholder="Jugador 6">
         </div>
     </div>
-    
-    
-    <div class="message-container">
-        @if (errorMessage) {
-        <div class="error-message">
-            {{ errorMessage }}
-        </div> }
-       @if (successMessage) {
-        <div class="success-message">
-            {{ successMessage }}
-        </div> }
+
+    <div class="card flex justify-center items-center">
+        <p class="mb-2 text-slateblue font-[poppins] text-[1.2rem]">Selecciona el tiempo a jugar</p>
+        <p-selectbutton [options]="timeOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
     </div>
 
     <!-- Botones Modal -->
@@ -54,6 +47,17 @@
             Cancelar
         </button>
         
+        <div class="message-container">
+            @if (errorMessage) {
+            <div class="error-message">
+                {{ errorMessage }}
+            </div> }
+            @if (successMessage) {
+            <div class="success-message">
+                {{ successMessage }}
+            </div> }
+        </div>
+
         <button class="modal-buttons aplied" 
             (click)="startGame()"
             [disabled]="isSaving">

@@ -4,10 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { ModalService } from '../../services/modal/modal.service';
 import { PlayerService } from '../../services/player/player.service';
 import { CommonModule } from '@angular/common';
+import { SelectButton } from 'primeng/selectbutton';
+import { FormsModule } from '@angular/forms';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-new-game-modal',
-  imports: [CommonModule],
+  imports: [CommonModule, SelectButton, FormsModule],
   templateUrl: './new-game-modal.html',
   styleUrl: './new-game-modal.css',
   standalone: true
@@ -25,6 +28,13 @@ export class NewGameModal implements OnInit, AfterViewInit {
   private router = inject (Router);
   private modalService = inject(ModalService);
   private playerService = inject(PlayerService);
+
+  timeOptions: SelectItem[] = [
+    { label: '30 Min', value: '30' },
+    { label: '60 Min', value: '60' },
+  ];
+
+  value = 'off';
 
   ngOnInit(): void {
     this.modalService.newGameModalItsOpen();
