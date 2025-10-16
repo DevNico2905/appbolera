@@ -14,6 +14,8 @@ export class ModalService {
   }>({ names: [], count: 0 });
 
   private currentGameId: string | null = null;
+  private gameDuration = new BehaviorSubject<number>(0);
+  duration$ = this.gameDuration.asObservable();
 
   public printVisibility(): void {
     console.log(this.modalVisibilitySubject.value);
@@ -39,4 +41,9 @@ export class ModalService {
   setPlayers(names: string[], count: number): void {
     this.playersSubject.next({ names, count });
   }
+
+  setGameDuration(timeValue: number){
+    this.gameDuration.next(timeValue);
+  }
+
 }

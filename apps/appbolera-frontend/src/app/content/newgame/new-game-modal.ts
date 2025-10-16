@@ -23,7 +23,7 @@ export class NewGameModal implements OnInit, AfterViewInit {
   successMessage = '';
   isSaving = false;
   showModal = false;
-  value = 'off';
+  timeSelected: number | null = null;
 
   private elRef = inject(ElementRef);
   private router = inject (Router);
@@ -31,8 +31,8 @@ export class NewGameModal implements OnInit, AfterViewInit {
   private playerService = inject(PlayerService);
 
   timeOptions: SelectItem[] = [
-    { label: '30 Min', value: '30' },
-    { label: '60 Min', value: '60' },
+    { label: '30 Min', value: 30 },
+    { label: '60 Min', value: 60 },
   ];
 
   ngOnInit(): void {
@@ -91,7 +91,7 @@ export class NewGameModal implements OnInit, AfterViewInit {
       return;
     }
 
-    if (this.value == 'off') {
+    if (!this.timeSelected) {
       this.errorMessage = 'Debe seleccionar la duración de la partida';
       return;
     }
@@ -109,31 +109,28 @@ export class NewGameModal implements OnInit, AfterViewInit {
     });
 
     this.playerService.savePlayers(
-      playerNames.map(name => ({ name, gameId }))
-    ).subscribe({
-      next: (savedPlayers) => {
-        this.successMessage = `¡Partida creada con ${savedPlayers.length} jugadores!`;
-        this.isSaving = false;
-        // Set the gameId in the modal service
-        this.modalService.setCurrentGameId(gameId); //
-        this.modalService.setPlayers(playerNames, playerCount);
-        
-        setTimeout(() => {
-          this.modalService.closeNewGameModal();
-          this.router.navigate(['scorer-modal']);
-        }, 1500);
-
-        
-
-        //this.modalService.openScoreModal();
-      },
-      error: (err) => {
-        this.errorMessage = 'Error al guardar la partida. Por favor, intenta nuevamente.';
-        this.isSaving = false;
-        console.error('Error:', err);
-      }
-    });
-    console.log(this.value)
+        playerNames.map(name => ({ name, gameId }))
+      ).subscribe({
+        next: (savedPlayers) => {
+          this.successMessage = `¡Partida creada con ${savedPlayers.length} jugadores!`;
+          this.isSaving = false;
+          // Set the gameId in the modal service
+          this.modalService.setCurrentGameId(gameId); //
+          this.modalService.setPlayers(playerNames, playerCount);
+          
+          setTimeout(() => {
+            this.modalService.closeNewGameModal();
+            this.router.navigate(['scorer-modal']);
+          }, 1500);
+        },
+        error: (err) => {
+          this.errorMessage = 'Error al guardar la partida. Por favor, intenta nuevamente.';
+          this.isSaving = false;
+          console.error('Error:', err);
+        }
+      });
+    console.log(this.timeSelected)
+    this.updateDuration()
   }
 
   private getPlayerNames(): string[] {
@@ -213,6 +210,12 @@ export class NewGameModal implements OnInit, AfterViewInit {
     this.clearInputs();
     this.resetSelection();
     this.showDivNameDefault();
+  }
+
+  private updateDuration(){
+    if (this.timeSelected !== null) {
+      this.modalService.setGameDuration(this.timeSelected);
+    }
   }
 
   hideNewGameModal(): void {
