@@ -5,6 +5,11 @@ import { ModalService } from '../../services/modal/modal.service';
 import { PlayerService } from '../../services/player/player.service';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+interface Player {
+  id?: number;
+  name: string;
+  gameId: string;
+}
 
 @Component({
   selector: 'app-scorer-modal',
@@ -22,7 +27,7 @@ export class ScorerModal implements OnInit{
   timeLeft: number = 0; // En segundos
   private timerInterval: ReturnType<typeof setInterval> | null = null;
   formattedTime: string = '';
-  players: any[] = [];
+  players: Player[] = [];
 
   ngOnInit(): void {
       this.modalService.duration$.subscribe(value => {
@@ -30,19 +35,37 @@ export class ScorerModal implements OnInit{
       })
       this.printGameDuration()
       this.startTimer()
-      this.loadPlayers();
+      this.loadPlayers()
   }
 
-  loadPlayers(){
-    this.playerService.getPlayersByGameId(this.modalService.getCurrentGameId())
-    .subscribe(players => {
-      this.players = players.map(p => ({
-        ...p,
-        frames: Array(5).fill({ attempt1: null, attempt2: null, total: null}),
-        totalSocore: 5
-      }))
-    })
-  }
+  loadPlayers(): void {
+  this.playerService.getPlayersByGameId(this.modalService.getCurrentGameId())
+    .subscribe({
+      next: (players) => {
+        this.players = players.map(p => this.initializePlayer(p));
+      },
+      error: (error) => {
+        console.error('Error al cargar jugadores:', error);
+      }
+    });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+private initializePlayer(player: any) {
+  return {
+    ...player,
+    frames: this.createEmptyFrames(10),
+    totalScore: 0
+  };
+}
+
+private createEmptyFrames(count: number) {
+  return Array.from({ length: count }, () => ({
+    attempt1: null,
+    attempt2: null,
+    total: null
+  }));
+}
 
   private printGameDuration(){
     console.log(this.gameDuration)
