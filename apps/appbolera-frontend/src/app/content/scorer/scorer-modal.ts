@@ -2,6 +2,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService } from '../../services/modal/modal.service';
+import { PlayerService } from '../../services/player/player.service';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 
@@ -14,12 +15,14 @@ import { CommonModule } from '@angular/common';
 })
 export class ScorerModal implements OnInit{
 
-  private gameDuration: number | null = null;
   private router = inject(Router);
   private modalService = inject(ModalService);
+  private playerService = inject(PlayerService);
+  private gameDuration: number | null = null;
   timeLeft: number = 0; // En segundos
   private timerInterval: ReturnType<typeof setInterval> | null = null;
   formattedTime: string = '';
+  players: any[] = [];
 
   ngOnInit(): void {
       this.modalService.duration$.subscribe(value => {
@@ -27,6 +30,18 @@ export class ScorerModal implements OnInit{
       })
       this.printGameDuration()
       this.startTimer()
+      this.loadPlayers();
+  }
+
+  loadPlayers(){
+    this.playerService.getPlayersByGameId(this.modalService.getCurrentGameId())
+    .subscribe(players => {
+      this.players = players.map(p => ({
+        ...p,
+        frames: Array(5).fill({ attempt1: null, attempt2: null, total: null}),
+        totalSocore: 5
+      }))
+    })
   }
 
   private printGameDuration(){

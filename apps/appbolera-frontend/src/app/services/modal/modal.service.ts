@@ -37,6 +37,10 @@ export class ModalService {
     this.currentGameId = gameId;
   }
 
+  getCurrentGameId(): string | null{
+    return this.currentGameId;
+  }
+
   // Métodos para manejar los jugadores
   setPlayers(names: string[], count: number): void {
     this.playersSubject.next({ names, count });

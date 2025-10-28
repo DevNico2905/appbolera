@@ -27,4 +27,9 @@ export class PlayerService {
   saveGameId(gameId: string): Observable<string> {
     return this.http.post<string>(`${environment.backendHost}/saveGameId/${gameId}`, {});
   }
+
+  //Método Get para llamar la lista de los jugadores creados según el 'id' del juego.
+  getPlayersByGameId(gameId: string | null): Observable<Player[]>{
+    return this.http.get<Player[]>(`${environment.backendHost}/players-by-game-id/${gameId}`);
+  }
 }
