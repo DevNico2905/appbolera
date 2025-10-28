@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,4 +44,9 @@ public class Controller {
         return ResponseEntity.ok(savedPlayers);
     }
     
+    // Obtener lista de jugador por el 'id' del juego.
+    @GetMapping("/players-by-game-id/{gameId}")
+    public List<Player> getPlayersByGameId(@PathVariable String gameId){
+        return playerRepository.findByGameId(gameId);
+    }
 }
