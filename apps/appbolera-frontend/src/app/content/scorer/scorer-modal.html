@@ -21,15 +21,9 @@
         <thead>
           <tr class="border-b-2 border-slateblue h-[34px]">
             <th class="w-2/12 border-r-2 border-slateblue">Nombre</th>
-            <th class="w-1/12 border-r-2 border-slateblue">1</th>
-            <th class="w-1/12 border-r-2 border-slateblue">2</th>
-            <th class="w-1/12 border-r-2 border-slateblue">3</th>
-            <th class="w-1/12 border-r-2 border-slateblue">4</th>
-            <th class="w-1/12 border-r-2 border-slateblue">5</th>
-            <th class="w-1/12 border-r-2 border-slateblue">6</th>
-            <th class="w-1/12 border-r-2 border-slateblue">7</th>
-            <th class="w-1/12 border-r-2 border-slateblue">8</th>
-            <th class="w-1/12 border-r-2 border-slateblue">9</th>
+            @for (frame of [1,2,3,4,5,6,7,8,9]; track frame) {
+              <th class="w-1/12 border-r-2 border-slateblue">{{ frame }}</th>
+            }
             <th class="w-2/12 border-r-2 border-slateblue">10</th>
             <th class="w-1/12">Total</th>
           </tr>
