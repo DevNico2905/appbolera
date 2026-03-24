@@ -1,96 +1,66 @@
-# Appbolera
+# Appbolera 🎳
 
+Un sistema centralizado e integral para la gestión y puntuación de boleras comerciales (Bowling Alley Management Software). Este sistema permite administrar pistas, gestionar tarifas basadas en bloques de tiempo, controlar el estado de los juegos y manejar los cierres de caja diarios y ciclos de negocio.
 
-Version NX = v21.4.1 | Current Latest Agost 2025
-```
-nx g @nx/angular:setup-tailwind appbolera-frontend
-npm i -D daisyui@4.12.10
-npm install -D @tailwindcss/typography
-npm install @fortawesome/free-solid-svg-icons
-npm install @fortawesome/free-regular-svg-icons
-npm install @fortawesome/free-brands-svg-icons
-npm install @fortawesome/angular-fontawesome
-nx g @nx/angular:component apps/ecom-frontend/src/app/layout/navbar // To create the Angular Components using Nx
-npm install @nxrocks/nx-spring-boot --save-dev // Maybe if we decided to create the springboot using Nx.
-```
+## Estructura del Proyecto
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Este monorepositorio está gestionado con **Nx** e integra tanto el frontend como el backend de la aplicación, separados en aplicaciones independientes dentro de la carpeta `apps/`.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+### 1. Frontend (`apps/appbolera-frontend`)
+Aplicación web moderna y reactiva diseñada para la recepción y control de pistas.
+- **Framework:** Angular v20.1
+- **Estilos y UI:** TailwindCSS, DaisyUI, PrimeNG / PrimeFlex
+- **Iconos:** FontAwesome
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+### 2. Backend (`apps/appbolera-backend`)
+API REST robusta encargada del manejo de datos, lógica de negocio y contabilidad de la bolera.
+- **Framework:** Spring Boot v3.5.5 (Java 21)
+- **Persistencia:** Spring Data JPA, Hibernate, PostgreSQL
+- **Herramientas:** Lombok, Maven Wrapper (`mvnw`)
 
-## Finish your CI setup
+## Características Principales 🌟
+- **Gestión Centralizada de Pistas:** Control único de todas las pistas desde un solo panel administrativo.
+- **Módulo de Contabilidad e Ingresos:** 
+  - Cálculo de tarifas basado en bloques de tiempo (ej. 30 min = $50k COP, 60 min = $80k COP) en lugar de tiempo exacto.
+  - Generación de resúmenes diarios exportables a Excel con el estado de las partidas (completado, cancelado).
+- **Control de Ciclos de Negocio:**
+  - Apertura/Cierre manual de ciclo de caja para evitar juegos fuera de la contabilidad.
+  - Gestión de turnos y juegos que transicionan después de medianoche.
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/8gyu3pqIJo)
+## Requisitos Previos
+- [Node.js](https://nodejs.org/) (versión compatible con Nx v21)
+- [Java 21](https://adoptium.net/)
+- [PostgreSQL](https://www.postgresql.org/) (en ejecución)
 
+## Ejecutar el Proyecto
 
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
+### Levantar el Frontend (Angular / Nx)
+Para arrancar el servidor de desarrollo del frontend:
+```bash
 npx nx serve appbolera-frontend
 ```
 
-To create a production bundle:
-
-```sh
+Para generar un build de producción:
+```bash
 npx nx build appbolera-frontend
 ```
 
-To see all available targets to run for a project, run:
-
-```sh
-npx nx show project appbolera-frontend
+### Levantar el Backend (Spring Boot)
+Navega a la carpeta del backend y utiliza Maven Wrapper:
+```bash
+cd apps/appbolera-backend
+./mvnw spring-boot:run
 ```
+*(Asegúrate de configurar los datos de acceso a tu base de datos PostgreSQL en el archivo `application.properties` o `application.yml` dentro de `src/main/resources`)*.
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## Comandos Útiles de Desarrollo (Nx Histórico)
+Aquí algunos comandos utilizados durante la configuración inicial del proyecto por si necesitas generar nuevos recursos:
+- Crear componente en Angular: `nx g @nx/angular:component apps/appbolera-frontend/src/app/layout/navbar`
+- Instalar plugin de SpringBoot Nx (opcional a futuro): `npm install @nxrocks/nx-spring-boot --save-dev`
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Herramientas de Nx
 
-## Add new projects
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/angular:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Aprende sobre cómo usar Nx](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial)
+- Extensión útil: [Instalar Nx Console en tu editor](https://nx.dev/getting-started/editor-setup) para autocompletar e interfaz visual de tareas.
